@@ -24,7 +24,9 @@ function App() {
     const shuffeledCards = [...cardImages, ...cardImages] 
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
-    
+      
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setCards(shuffeledCards)
     setTurns(0)
   }
@@ -43,7 +45,7 @@ function App() {
           return prevCards.map(card => {
             if(card.src === choiceOne.src) {
               return {...card, matched: true}
-            } else {
+            }  else {
               return card
             }
           })
@@ -54,6 +56,10 @@ function App() {
       }
     }
   }, [choiceOne, choiceTwo])
+  
+  useEffect(() => {
+    shuffleCards()
+  }, [])
   
   
   const resetTurn = () => {
@@ -78,6 +84,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
